@@ -8,16 +8,12 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 	"../AgencyComm"
 )
 
-var agents = []string{
-	"localhost:5000",
-	"localhost:5001",
-	"localhost:5002",
-}
-
+var agents []string
 var theAgency AgencyComm.Agency
 
 func hello(w http.ResponseWriter, r *http.Request) {
@@ -90,12 +86,18 @@ func pingColleagues(myUUID uuid.UUID,
 
 func main() {
 	// Build agency object:
+	agents = make([]string, len(os.Args) - 2)
+	for j := 2; j < len(os.Args); j++ {
+		agents[j-2] = os.Args[j]
+	}
 	theAgency = AgencyComm.Agency{Endpoints: agents}
 
 	// Create server:
 	http.HandleFunc("/hello", hello)
 	myAddress := os.Args[1]
-	go http.ListenAndServe(myAddress, nil)
+	pos := strings.LastIndex(myAddress, ":")
+	myPort := myAddress[pos+1:]
+	go http.ListenAndServe("0.0.0.0:"+myPort, nil)
 
 	// Make a uuid and register with that uuid:
 	myUUID := register(myAddress)
