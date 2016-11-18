@@ -1,8 +1,8 @@
-FROM ubuntu:16.04
+FROM ubuntu:16.10
 
 MAINTAINER Max Neunhoeffer <max@arangodb.com>
 
 ADD start.sh /start.sh
-ADD ../discovery/discovery /discovery
+ADD discovery /discovery
 
 CMD ["/start.sh"]
