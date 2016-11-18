@@ -104,7 +104,7 @@ func main() {
 	defer unregister(myUUID)
 	fmt.Println("My ID is ", myUUID)
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 60; i++ {
 		time.Sleep(1000000000)
 		// Get all the others:
 		colleagues := getColleagues(myUUID)
