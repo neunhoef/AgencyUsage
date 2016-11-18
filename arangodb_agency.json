@@ -1,0 +1,43 @@
+{
+  "id": "arangodbagency",
+  "cmd": null,
+  "cpus": 0.5,
+  "mem": 1024,
+  "disk": 1024,
+  "instances": 3,
+  "container": {
+    "docker": {
+      "image": "arangodb/arangodb-agency:3.1.0",
+      "network": "HOST",
+      "forcePullImage": false
+    },
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "hostPath": "data",
+        "containerPath": "/var/lib/arangodb3",
+        "mode": "RW"
+      },
+      {
+        "containerPath": "data",
+        "persistent": {
+          "size": 1024
+        },
+        "mode": "RW"
+      }
+    ]
+  },
+  "portDefinitions": [
+    {
+      "port": 0,
+      "protocol": "tcp",
+      "name": "agency",
+      "labels": { "VIP0": "agency:8529" }
+    }
+  ],
+  "env": {
+    "AGENCY_SIZE": "3"
+  },
+  "labels": {},
+  "healthChecks": []
+}
