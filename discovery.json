@@ -1,0 +1,14 @@
+{
+  "id": "discovery",
+  "cpus": 1,
+  "mem": 128,
+  "instances": 3,
+  "container": {
+    "docker": {
+      "image": "neunhoef/discovery",
+      "network": "HOST",
+      "forcePullImage": true
+    },
+    "type": "DOCKER"
+  }
+}
